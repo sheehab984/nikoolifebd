@@ -1,0 +1,20 @@
+# Environment
+.env
+.env.local
+.env.production
+
+# Docker
+nginx/certs/
+
+# Dependencies
+node_modules/
+backend/node_modules/
+storefront/node_modules/
+
+# Build outputs
+backend/.medusa/
+storefront/.next/
+
+# Misc
+.DS_Store
+*.log
