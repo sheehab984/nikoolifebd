@@ -12,5 +12,15 @@ module.exports = defineConfig({
       jwtSecret: process.env.JWT_SECRET || "supersecret",
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     }
-  }
+  },
+  plugins: [
+    {
+      resolve: "@medusajs/payment-stripe",
+      options: {
+        apiKey: process.env.STRIPE_API_KEY,
+        // PayPal is enabled via Stripe dashboard → Payment methods → PayPal
+        // No additional config needed here
+      },
+    },
+  ],
 })
