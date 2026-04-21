@@ -112,7 +112,18 @@ export async function middleware(request: NextRequest) {
 
   let cacheId = cacheIdCookie?.value || crypto.randomUUID()
 
-  const regionMap = await getRegionMap(cacheId)
+  let regionMap: Map<string, HttpTypes.StoreRegion | number>
+
+  try {
+    regionMap = await getRegionMap(cacheId)
+  } catch (e) {
+    // Backend not reachable yet (e.g. still starting up in dev). Let the
+    // request through so the storefront doesn't hard-crash.
+    if (process.env.NODE_ENV === "development") {
+      console.warn("middleware: backend unreachable, skipping region redirect.")
+    }
+    return NextResponse.next()
+  }
 
   const countryCode = regionMap && (await getCountryCode(request, regionMap))
 
@@ -148,11 +159,8 @@ export async function middleware(request: NextRequest) {
     redirectUrl = `${request.nextUrl.origin}/${countryCode}${redirectPath}${queryString}`
     response = NextResponse.redirect(`${redirectUrl}`, 307)
   } else if (!urlHasCountryCode && !countryCode) {
-    // Handle case where no valid country code exists (empty regions)
-    return new NextResponse(
-      "No valid regions configured. Please set up regions with countries in your Medusa Admin.",
-      { status: 500 }
-    )
+    // Backend has no regions yet — pass through instead of hard 500
+    return NextResponse.next()
   }
 
   return response
