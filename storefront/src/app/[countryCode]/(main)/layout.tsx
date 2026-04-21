@@ -26,6 +26,12 @@ export default async function PageLayout(props: { children: React.ReactNode }) {
 
   return (
     <>
+      {/* Announcement bar */}
+      <div className="bg-nikoo-charcoal text-nikoo-cream text-center py-2 text-xs tracking-widest font-sans uppercase">
+        <span>Free UK Shipping on Orders Over £50</span>
+        <span className="mx-3 opacity-40">|</span>
+        <span>New Eid Collection Now Live</span>
+      </div>
       <Nav />
       {customer && cart && (
         <CartMismatchBanner customer={customer} cart={cart} />

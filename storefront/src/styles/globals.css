@@ -2,6 +2,22 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+:root {
+  --color-cream: #FAF7F2;
+  --color-ivory: #F2EDE4;
+  --color-gold: #C9A84C;
+  --color-charcoal: #2C2416;
+  --color-muted: #7D7268;
+  --color-border: #EAE4D9;
+}
+
+html, body {
+  background-color: var(--color-cream);
+  color: var(--color-charcoal);
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
 @layer utilities {
   /* Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {

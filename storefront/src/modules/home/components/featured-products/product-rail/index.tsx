@@ -1,8 +1,6 @@
 import { listProducts } from "@lib/data/products"
 import { HttpTypes } from "@medusajs/types"
-import { Text } from "@medusajs/ui"
-
-import InteractiveLink from "@modules/common/components/interactive-link"
+import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import ProductPreview from "@modules/products/components/product-preview"
 
 export default async function ProductRail({
@@ -27,21 +25,35 @@ export default async function ProductRail({
   }
 
   return (
-    <div className="content-container py-12 small:py-24">
-      <div className="flex justify-between mb-8">
-        <Text className="txt-xlarge">{collection.title}</Text>
-        <InteractiveLink href={`/collections/${collection.handle}`}>
-          View all
-        </InteractiveLink>
-      </div>
-      <ul className="grid grid-cols-2 small:grid-cols-3 gap-x-6 gap-y-24 small:gap-y-36">
-        {pricedProducts &&
-          pricedProducts.map((product) => (
+    <section className="py-14 small:py-20 border-b border-nikoo-border last:border-b-0">
+      <div className="content-container">
+        {/* Section header */}
+        <div className="flex items-end justify-between mb-10">
+          <div>
+            <p className="font-sans text-[10px] tracking-[0.3em] uppercase text-nikoo-gold mb-2">
+              Collection
+            </p>
+            <h2 className="font-display text-4xl small:text-5xl font-light text-nikoo-charcoal tracking-wide">
+              '{collection.title}'
+            </h2>
+          </div>
+          <LocalizedClientLink
+            href={`/collections/${collection.handle}`}
+            className="font-sans text-xs tracking-[0.2em] uppercase text-nikoo-muted border-b border-nikoo-muted pb-0.5 hover:text-nikoo-gold hover:border-nikoo-gold transition-colors duration-200"
+          >
+            View all
+          </LocalizedClientLink>
+        </div>
+
+        {/* Product grid */}
+        <ul className="grid grid-cols-2 small:grid-cols-4 gap-x-5 gap-y-12">
+          {pricedProducts.map((product) => (
             <li key={product.id}>
               <ProductPreview product={product} region={region} isFeatured />
             </li>
           ))}
-      </ul>
-    </div>
+        </ul>
+      </div>
+    </section>
   )
 }

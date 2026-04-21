@@ -1,5 +1,3 @@
-import { Text } from "@medusajs/ui"
-import { listProducts } from "@lib/data/products"
 import { getProductPrice } from "@lib/util/get-product-price"
 import { HttpTypes } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
@@ -15,35 +13,33 @@ export default async function ProductPreview({
   isFeatured?: boolean
   region: HttpTypes.StoreRegion
 }) {
-  // const pricedProduct = await listProducts({
-  //   regionId: region.id,
-  //   queryParams: { id: [product.id!] },
-  // }).then(({ response }) => response.products[0])
-
-  // if (!pricedProduct) {
-  //   return null
-  // }
-
-  const { cheapestPrice } = getProductPrice({
-    product,
-  })
+  const { cheapestPrice } = getProductPrice({ product })
 
   return (
-    <LocalizedClientLink href={`/products/${product.handle}`} className="group">
+    <LocalizedClientLink href={`/products/${product.handle}`} className="group block">
       <div data-testid="product-wrapper">
-        <Thumbnail
-          thumbnail={product.thumbnail}
-          images={product.images}
-          size="full"
-          isFeatured={isFeatured}
-        />
-        <div className="flex txt-compact-medium mt-4 justify-between">
-          <Text className="text-ui-fg-subtle" data-testid="product-title">
-            {product.title}
-          </Text>
-          <div className="flex items-center gap-x-2">
-            {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
+        {/* Image */}
+        <div className="overflow-hidden bg-nikoo-ivory mb-4">
+          <div className="transform group-hover:scale-[1.03] transition-transform duration-500 ease-out">
+            <Thumbnail
+              thumbnail={product.thumbnail}
+              images={product.images}
+              size="full"
+              isFeatured={isFeatured}
+            />
           </div>
+        </div>
+
+        {/* Info */}
+        <div className="text-center px-1">
+          <p className="font-sans text-xs text-nikoo-charcoal tracking-wide leading-snug mb-1.5 group-hover:text-nikoo-gold transition-colors duration-200 uppercase">
+            {product.title}
+          </p>
+          {cheapestPrice && (
+            <div className="font-sans text-xs text-nikoo-muted">
+              <PreviewPrice price={cheapestPrice} />
+            </div>
+          )}
         </div>
       </div>
     </LocalizedClientLink>

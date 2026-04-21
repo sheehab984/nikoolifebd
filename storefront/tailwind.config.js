@@ -58,15 +58,23 @@ module.exports = {
       fontSize: {
         "3xl": "2rem",
       },
+      colors: {
+        nikoo: {
+          cream: "#FAF7F2",
+          ivory: "#F2EDE4",
+          gold: "#C9A84C",
+          charcoal: "#2C2416",
+          muted: "#7D7268",
+          border: "#EAE4D9",
+          dark: "#1A1208",
+        },
+      },
       fontFamily: {
+        display: ["Cormorant Garamond", "Georgia", "serif"],
         sans: [
-          "Inter",
+          "DM Sans",
           "-apple-system",
           "BlinkMacSystemFont",
-          "Segoe UI",
-          "Roboto",
-          "Helvetica Neue",
-          "Ubuntu",
           "sans-serif",
         ],
       },
