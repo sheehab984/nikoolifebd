@@ -30,6 +30,20 @@ const nextConfig = {
       {
         protocol: "http",
         hostname: "localhost",
+        port: "8000",
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "9000",
+      },
+      {
+        protocol: "https",
+        hostname: "nikoolife.co.uk",
+      },
+      {
+        protocol: "https",
+        hostname: "api.nikoolife.co.uk",
       },
       {
         protocol: "https",

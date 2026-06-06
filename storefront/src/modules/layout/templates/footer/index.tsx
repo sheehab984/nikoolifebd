@@ -137,10 +137,10 @@ export default async function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-white/10 pt-8 flex flex-col small:flex-row items-center justify-between gap-4">
           <p className="font-sans text-[10px] text-white/30 tracking-widest uppercase">
-            © {new Date().getFullYear()} Nikoo Life Ltd. All rights reserved.
+            © {new Date().getFullYear()} Nikoo Life. All rights reserved.
           </p>
-          <p className="font-sans text-[10px] text-white/30 tracking-widest uppercase">
-            nikoolife.co.uk
+          <p className="font-sans text-[10px] text-white/30 tracking-wide">
+            Sole trader · nikoolife.co.uk
           </p>
         </div>
       </div>

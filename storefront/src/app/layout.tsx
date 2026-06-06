@@ -1,3 +1,4 @@
+import CookieConsent from "@modules/common/components/cookie-consent"
 import { getBaseURL } from "@lib/util/env"
 import { Metadata } from "next"
 import "styles/globals.css"
@@ -19,6 +20,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
       </head>
       <body>
         <main className="relative">{props.children}</main>
+        <CookieConsent />
       </body>
     </html>
   )

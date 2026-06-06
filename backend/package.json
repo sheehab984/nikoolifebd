@@ -26,7 +26,8 @@
     "@medusajs/cli": "2.13.6",
     "@medusajs/framework": "2.13.6",
     "@medusajs/medusa": "2.13.6",
-    "@medusajs/payment-stripe": "^2.13.6"
+    "@medusajs/payment-stripe": "^2.13.6",
+    "resend": "^4.0.0"
   },
   "devDependencies": {
     "@medusajs/test-utils": "2.13.6",

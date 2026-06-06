@@ -87,13 +87,18 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     notFound()
   }
 
+  const description = product.description
+    ? product.description.slice(0, 160)
+    : `Shop ${product.title} at Nikoo Life — modest fashion for the modern Muslim woman.`
+
   return {
-    title: `${product.title} | Medusa Store`,
-    description: `${product.title}`,
+    title: `${product.title} | Nikoo Life`,
+    description,
     openGraph: {
-      title: `${product.title} | Medusa Store`,
-      description: `${product.title}`,
-      images: product.thumbnail ? [product.thumbnail] : [],
+      title: `${product.title} | Nikoo Life`,
+      description,
+      images: product.thumbnail ? [{ url: product.thumbnail, alt: product.title }] : [],
+      type: "website",
     },
   }
 }

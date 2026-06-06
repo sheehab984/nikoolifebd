@@ -6,9 +6,9 @@ import { listCollections } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
 
 export const metadata: Metadata = {
-  title: "Medusa Next.js Starter Template",
+  title: "Nikoo Life | Modest Fashion for the Modern Muslim Woman",
   description:
-    "A performant frontend ecommerce starter template with Next.js 15 and Medusa.",
+    "Discover our collection of abayas, kimonos and modest wear. Free UK shipping on orders over £50.",
 }
 
 export default async function Home(props: {

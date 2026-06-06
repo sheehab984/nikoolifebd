@@ -171,7 +171,7 @@ export default async function seedProducts({ container }: ExecArgs) {
   // ── 3. Create collections ────────────────────────────────────────────────
   logger.info("Creating collections...")
 
-  const existingCollections = await productModuleService.listCollections()
+  const existingCollections = await productModuleService.listProductCollections()
   const existingHandles = existingCollections.map((c: any) => c.handle)
 
   const collectionMap: Record<string, string> = {}
@@ -186,11 +186,11 @@ export default async function seedProducts({ container }: ExecArgs) {
       collectionMap[title] = existing.id
       logger.info(`  Collection already exists: ${title}`)
     } else {
-      const created = await productModuleService.createCollections({
+      const created = await productModuleService.createProductCollections({
         title,
         handle,
       })
-      collectionMap[title] = created.id
+      collectionMap[title] = (created as any).id ?? (created as any)[0]?.id
       logger.info(`  Created collection: ${title}`)
     }
   }
@@ -253,17 +253,6 @@ export default async function seedProducts({ container }: ExecArgs) {
     })
 
     logger.info(`  ✓ Created: ${result[0].title}`)
-  }
-
-  // ── 5. Add all products to "New In" collection ──────────────────────────
-  logger.info("Adding all products to New In collection...")
-  const allProducts = await productModuleService.listProducts()
-  const newInId = collectionMap["New In"]
-
-  for (const p of allProducts) {
-    await productModuleService.updateProducts(p.id, {
-      // collection_id is set at creation; for new-in we add it separately
-    })
   }
 
   logger.info("✅ Seed complete!")
