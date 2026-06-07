@@ -13,6 +13,8 @@ NikooLife is a premium modest fashion e-commerce platform (abayas, kimonos) usin
 make setup          # Start Docker deps, run migrations, create admin user
 ```
 
+For production deployment on a new server, follow `docs/production-setup.md`.
+
 ### Daily development
 ```bash
 make dev            # Start Postgres + Redis (Docker) + backend + storefront together
@@ -88,7 +90,9 @@ Uses the Medusa v2 module/workflow architecture:
 Stripe is configured as the payment provider in `medusa-config.ts`. PayPal is enabled via Stripe dashboard (no extra backend config).
 
 ### Product images
-Images are static files in `storefront/public/products/<product-handle>/` and served by the Next.js server. Products are managed through the Medusa Admin UI (`https://api.nikoolife.co.uk/app`). When adding a product, reference images by their public URL: `https://nikoolife.co.uk/products/<handle>/<filename>`.
+Images are uploaded through the Medusa Admin UI and stored by the local file provider in `uploads/` relative to the backend working directory. In production this directory is mounted as a Docker named volume (`uploads_data`) so files persist across container rebuilds. Uploaded files are served at `https://api.nikoolife.co.uk/uploads/<filename>`. The storefront's `next.config.js` already includes `api.nikoolife.co.uk` in `remotePatterns` so Next.js image optimisation works automatically.
+
+Banner images (`storefront/public/banners/`) remain as static files — they are part of the storefront UI, not product records.
 
 ### Environment variables
 - Backend: `backend/.env` (copy from `backend/.env.template`)

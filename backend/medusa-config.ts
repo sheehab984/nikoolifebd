@@ -23,6 +23,24 @@ module.exports = defineConfig({
     },
   ],
   modules: [
+    {
+      resolve: "@medusajs/file",
+      options: {
+        providers: [
+          {
+            resolve: "@medusajs/file-local",
+            id: "local",
+            options: {
+              // Uploaded files are stored in the `uploads/` directory relative
+              // to the Medusa server working directory, and served at:
+              //   {BACKEND_URL}/uploads/{filename}
+              upload_dir: "uploads",
+              backend_url: process.env.BACKEND_URL || "http://localhost:9000",
+            },
+          },
+        ],
+      },
+    },
     ...(process.env.RESEND_API_KEY ? [
       {
         resolve: "@medusajs/notification",

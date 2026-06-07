@@ -323,13 +323,15 @@ Setting up product collections...
 
 Log in to `https://api.nikoolife.co.uk/app` → **Products → New Product**.
 
-Product images are static files in `storefront/public/products/<handle>/` and served by the Next.js standalone server. Reference them in the Admin UI as:
+Upload images directly in the Admin UI using the image upload field. Medusa stores them via the local file provider and returns a URL in the form:
 
 ```
-https://nikoolife.co.uk/products/<handle>/<filename>
+https://api.nikoolife.co.uk/uploads/<filename>
 ```
 
-For example: `https://nikoolife.co.uk/products/gold-shimmer-abaya/01-front.jpg`
+This URL is stored in the product record and used by the storefront automatically. No manual file management needed.
+
+Images are persisted in the `uploads_data` Docker named volume — they survive `docker compose down` and container rebuilds. The only thing that deletes them is `docker volume rm nikoolifebd_uploads_data` or `docker compose down -v`.
 
 ---
 

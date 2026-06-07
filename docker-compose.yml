@@ -55,11 +55,14 @@ services:
       AUTH_CORS: ${AUTH_CORS:-https://nikoolife.co.uk,https://www.nikoolife.co.uk,https://api.nikoolife.co.uk}
       MEDUSA_ADMIN_ONBOARDING_TYPE: nextjs
       STRIPE_API_KEY: ${STRIPE_API_KEY}
+      BACKEND_URL: ${BACKEND_URL:-https://api.nikoolife.co.uk}
       NODE_ENV: production
     networks:
       - internal
     expose:
       - "9000"
+    volumes:
+      - uploads_data:/app/uploads
 
   storefront:
     build:
@@ -101,6 +104,7 @@ services:
 volumes:
   postgres_data:
   redis_data:
+  uploads_data:
 
 networks:
   internal:
