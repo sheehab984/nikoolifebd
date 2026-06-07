@@ -50,9 +50,9 @@ services:
       REDIS_URL: redis://redis:6379
       JWT_SECRET: ${JWT_SECRET}
       COOKIE_SECRET: ${COOKIE_SECRET}
-      STORE_CORS: ${STORE_CORS:-https://nikoolife.co.uk}
-      ADMIN_CORS: ${ADMIN_CORS:-https://nikoolife.co.uk}
-      AUTH_CORS: ${AUTH_CORS:-https://nikoolife.co.uk}
+      STORE_CORS: ${STORE_CORS:-https://nikoolife.co.uk,https://www.nikoolife.co.uk}
+      ADMIN_CORS: ${ADMIN_CORS:-https://api.nikoolife.co.uk}
+      AUTH_CORS: ${AUTH_CORS:-https://nikoolife.co.uk,https://www.nikoolife.co.uk,https://api.nikoolife.co.uk}
       MEDUSA_ADMIN_ONBOARDING_TYPE: nextjs
       STRIPE_API_KEY: ${STRIPE_API_KEY}
       NODE_ENV: production
