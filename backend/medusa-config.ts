@@ -31,11 +31,13 @@ module.exports = defineConfig({
             resolve: "@medusajs/file-local",
             id: "local",
             options: {
-              // Uploaded files are stored in the `uploads/` directory relative
-              // to the Medusa server working directory, and served at:
-              //   {BACKEND_URL}/uploads/{filename}
+              // Files stored in `uploads/` in the server working dir.
+              // Served by nginx directly from the uploads_data Docker volume at
+              //   https://api.nikoolife.co.uk/uploads/{filename}
+              // FILE_UPLOAD_URL must include the /uploads path so generated
+              // image URLs resolve correctly (e.g. https://api.nikoolife.co.uk/uploads).
               upload_dir: "uploads",
-              backend_url: process.env.BACKEND_URL || "http://localhost:9000",
+              backend_url: process.env.FILE_UPLOAD_URL || "http://localhost:9000/uploads",
             },
           },
         ],
