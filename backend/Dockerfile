@@ -4,7 +4,7 @@ RUN apk add --no-cache python3 make g++
 
 FROM base AS deps
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile --production=false
+RUN yarn install --production=false
 
 FROM deps AS builder
 COPY . .
@@ -13,7 +13,7 @@ RUN yarn build
 FROM base AS runner
 ENV NODE_ENV=production
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile --production=true
+RUN yarn install --production=true
 COPY --from=builder /app/.medusa ./.medusa
 COPY --from=builder /app/medusa-config.ts ./medusa-config.ts
 
