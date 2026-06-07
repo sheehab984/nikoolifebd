@@ -83,12 +83,14 @@ migrate:
 	@echo "✅  Migrations done."
 
 seed:
-	@echo "🌱  Seeding demo data..."
-	@cd $(BACKEND_DIR) && yarn medusa exec src/scripts/seed.ts
+	@echo "🌱  Seeding UK region, GBP currency, and collections..."
+	@cd $(BACKEND_DIR) && yarn medusa exec src/scripts/seed-region.ts
 	@echo "✅  Seed done."
 
 admin:
-	@echo "👤  Creating admin user..."
-	@cd $(BACKEND_DIR) && yarn medusa user -e admin@nikoolife.co.uk -p adminpassword
-	@echo "✅  Admin created: admin@nikoolife.co.uk / adminpassword"
-	@echo "⚠️   Change your password after first login."
+	@read -p "Admin email: " email; \
+	 read -s -p "Admin password: " password; \
+	 echo ""; \
+	 echo "👤  Creating admin user..."; \
+	 cd $(BACKEND_DIR) && yarn medusa user -e "$$email" -p "$$password"; \
+	 echo "✅  Admin created: $$email"

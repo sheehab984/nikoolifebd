@@ -26,15 +26,14 @@ make clean          # Destroy Docker volumes (deletes all data)
 ### Database
 ```bash
 make migrate        # Run pending Medusa migrations
-make seed           # Seed demo data (base regions/sales channels)
-make admin          # Create admin user: admin@nikoolife.co.uk / adminpassword
+make seed           # Seed UK/GBP region, 20% VAT, and Abayas/Kimonos/New In collections
+make admin          # Create an admin user (prompts for email and password)
 ```
 
 ### Backend scripts (run individually)
 ```bash
 cd backend
-yarn medusa exec src/scripts/seed-products.ts      # Seed fashion collections + products
-yarn medusa exec src/scripts/seed-region.ts        # Seed UK/GBP region
+yarn medusa exec src/scripts/seed-region.ts        # Seed UK/GBP region + collections
 yarn medusa exec src/scripts/fix-api-key.ts        # Rotate publishable API key
 yarn medusa exec src/scripts/fix-store-currency.ts # Fix store currency
 ```
@@ -89,7 +88,7 @@ Uses the Medusa v2 module/workflow architecture:
 Stripe is configured as the payment provider in `medusa-config.ts`. PayPal is enabled via Stripe dashboard (no extra backend config).
 
 ### Product images
-Images are static files in `storefront/public/products/<product-handle>/` and served by the Next.js dev server. The seed script (`seed-products.ts`) constructs image URLs as `${NEXT_PUBLIC_BASE_URL}/products/<handle>/<filename>`, so the storefront must be running when seeding to serve images correctly.
+Images are static files in `storefront/public/products/<product-handle>/` and served by the Next.js server. Products are managed through the Medusa Admin UI (`https://api.nikoolife.co.uk/app`). When adding a product, reference images by their public URL: `https://nikoolife.co.uk/products/<handle>/<filename>`.
 
 ### Environment variables
 - Backend: `backend/.env` (copy from `backend/.env.template`)

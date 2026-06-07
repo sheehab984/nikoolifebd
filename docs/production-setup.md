@@ -176,25 +176,41 @@ nginx serves:
 
 ## Step 9 — Create the admin user
 
+Run this and enter your chosen email and password when prompted:
+
+```bash
+make admin
+```
+
+Or directly:
+
 ```bash
 docker exec nikoolifebd-backend-1 ./node_modules/.bin/medusa user \
-  -e admin@nikoolife.co.uk -p yourpassword
+  -e your@email.com -p yourpassword
 ```
 
 Access the admin at `https://api.nikoolife.co.uk/app`.
 
 ---
 
-## Step 10 — Seed initial data (via Admin UI)
+## Step 10 — Seed region and collections
 
-Log in to `https://api.nikoolife.co.uk/app` and:
+```bash
+docker exec nikoolifebd-backend-1 ./node_modules/.bin/medusa exec \
+  src/scripts/seed-region.ts
+```
 
-1. **Settings → Regions** → Create "United Kingdom" region, currency GBP, country GB
-2. **Settings → Store** → Set default currency to GBP
-3. **Products → Collections** → Create "Abayas", "Kimonos", "New In"
-4. **Products** → Add products with images, prices in GBP
+This creates:
+- United Kingdom / GBP region with GB as the country
+- 20% Standard UK VAT tax rate
+- Three product collections: Abayas, Kimonos, New In
+- GBP as the default store currency
 
-> The admin UI is the recommended way to manage products in production.
+---
+
+## Step 11 — Add products via Admin UI
+
+Log in to `https://api.nikoolife.co.uk/app` and use **Products → New Product** to add items. Product images are static files served from the storefront — reference them as `https://nikoolife.co.uk/products/<handle>/<filename>`.
 
 ---
 
