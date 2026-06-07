@@ -60,19 +60,17 @@ export default async function seedRegion({ container }: ExecArgs) {
 
   try {
     await createTaxRegionsWorkflow(container).run({
-      input: {
-        tax_regions: [
-          {
-            country_code: "GB",
-            province_code: null,
-            default_tax_rate: {
-              name: "Standard UK VAT",
-              rate: 20,
-              code: "standard",
-            },
+      input: [
+        {
+          country_code: "GB",
+          province_code: null,
+          default_tax_rate: {
+            name: "Standard UK VAT",
+            rate: 20,
+            code: "standard",
           },
-        ],
-      },
+        },
+      ],
     })
     logger.info("  ✓ GB tax region created (20% VAT)")
   } catch (e) {

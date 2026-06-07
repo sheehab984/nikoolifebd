@@ -183,7 +183,7 @@ export default async function seedProducts({ container }: ExecArgs) {
   ]) {
     if (existingHandles.includes(handle)) {
       const existing = existingCollections.find((c: any) => c.handle === handle)
-      collectionMap[title] = existing.id
+      collectionMap[title] = existing!.id
       logger.info(`  Collection already exists: ${title}`)
     } else {
       const created = await productModuleService.createProductCollections({
@@ -221,7 +221,7 @@ export default async function seedProducts({ container }: ExecArgs) {
             thumbnail: product.thumbnail,
             images: product.images.map((url) => ({ url })),
             collection_id: collectionMap[product.collection],
-            categories: [],
+            category_ids: [],
             tags: [],
             options: [
               {
