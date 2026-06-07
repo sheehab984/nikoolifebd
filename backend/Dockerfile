@@ -11,12 +11,15 @@ FROM deps AS builder
 COPY . .
 RUN yarn build
 
-FROM base AS runner
+FROM node:20-alpine AS runner
 ENV NODE_ENV=production
+WORKDIR /app
+
+# Use the compiled server output as working directory.
+# .medusa/server/ contains medusa-config.js (not .ts), so medusa start won't
+# attempt to recompile with ts-node at runtime.
+COPY --from=builder /app/.medusa/server ./
 COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/.medusa ./.medusa
-COPY --from=builder /app/medusa-config.ts ./medusa-config.ts
-COPY package.json ./
 
 EXPOSE 9000
-CMD ["node", ".medusa/server/src/main.js"]
+CMD ["./node_modules/.bin/medusa", "start"]
